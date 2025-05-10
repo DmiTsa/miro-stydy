@@ -1,1 +1,1 @@
-export { BoardCard } from "@/features/boards-list/board-card";
+// export { BoardCard } from "@/features/boards-list/board-card";

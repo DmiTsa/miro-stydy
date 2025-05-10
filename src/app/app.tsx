@@ -1,11 +1,15 @@
 import { AppHeader } from "@/features/header";
-import { Outlet } from "react-router-dom";
+import { ROUTES } from "@/shared/model/routes";
+import { Outlet, useLocation } from "react-router-dom";
 
 export function App() {
+  const location = useLocation();
+  const isAuthPage =
+    location.pathname === ROUTES.LOGIN || location.pathname === ROUTES.REGISTER;
+
   return (
     <div>
-      <AppHeader />
-      <h1>test</h1>
+      {!isAuthPage && <AppHeader />}
       {/* отрисовка вложенности (описана в компоненте router.tsx) */}
       <Outlet />
     </div>
