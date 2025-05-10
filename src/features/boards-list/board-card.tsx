@@ -1,5 +1,5 @@
-export const BoardCard = () => {
+function BoardCard() {
   return <></>;
-};
+}
 
-// export default BoardCard;
+export const Component = BoardCard;
