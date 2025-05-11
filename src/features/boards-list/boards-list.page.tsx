@@ -1,6 +1,8 @@
 import { rqClient } from "@/shared/api/instance";
 import { CONFIG } from "@/shared/model/config"; //фасад для env из модели
 import { ROUTES } from "@/shared/model/routes";
+import { Button } from "@/shared/ui/kit/button";
+import { Card, CardFooter, CardHeader } from "@/shared/ui/kit/card";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link, href } from "react-router-dom";
 
@@ -30,7 +32,7 @@ function BoardsListPage() {
   );
 
   return (
-    <div>
+    <div className="container mx-auto p-4">
       Boards list url {CONFIG.API_BASE_URL}
       <br />
       <form
@@ -51,27 +53,35 @@ function BoardsListPage() {
         </button>
       </form>
       <br />
-      {queryBoards.data?.map((board) => {
-        return (
-          <>
-            <Link to={href(ROUTES.BOARD, { boardId: board.id })}>
-              {board.name}
-            </Link>
+      <div className="grid grid-cols-3 gap-4">
+        {queryBoards.data?.map((board) => {
+          return (
+            <Card key={board.id}>
+              <CardHeader>
+                <Button asChild variant="link">
+                  <Link to={href(ROUTES.BOARD, { boardId: board.id })}>
+                    {board.name}
+                  </Link>
+                </Button>
+              </CardHeader>
 
-            <button
-              disabled={deleteBoardMutation.isPending}
-              onClick={() =>
-                deleteBoardMutation.mutate({
-                  params: { path: { boardId: board.id } },
-                })
-              }
-            >
-              Delete
-            </button>
-            <br />
-          </>
-        );
-      })}
+              <CardFooter>
+                <Button
+                  variant="destructive"
+                  disabled={deleteBoardMutation.isPending}
+                  onClick={() =>
+                    deleteBoardMutation.mutate({
+                      params: { path: { boardId: board.id } },
+                    })
+                  }
+                >
+                  Delete
+                </Button>
+              </CardFooter>
+            </Card>
+          );
+        })}
+      </div>
     </div>
   );
 }

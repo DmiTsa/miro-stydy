@@ -9,12 +9,12 @@ export function App() {
     location.pathname === ROUTES.LOGIN || location.pathname === ROUTES.REGISTER;
 
   return (
-    <>
+    <div>
       <Providers>
         {!isAuthPage && <AppHeader />}
         {/* отрисовка вложенности (описана в компоненте router.tsx) */}
         <Outlet />
       </Providers>
-    </>
+    </div>
   );
 }
